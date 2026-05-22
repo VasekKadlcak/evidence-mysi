@@ -20,7 +20,7 @@
 <% mysi.forEach(mys => { %>
   <div>
     <h2><a href="/mysi/<%= mys._id %>"><%= mys.name %></a></h2>
-    <p>Plemeno: <%= mys.breed %></p>
+    <p>Typ: <%= mys.typ %></p>
     <p>Věk: <%= mys.age %> měsíců</p>
     <% if (mys.image) { %>
       <img src="/uploads/<%= mys.image %>" width="200">

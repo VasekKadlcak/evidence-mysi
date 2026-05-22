@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const mysSchema = new mongoose.Schema({
   name: String,
-  breed: String,
+  typ: String,
   age: Number,
   description: String,
   image: {
     type: String,
     default: ""
   }
-}, { timestamps: true });
+}, { timestamps: true })
 module.exports = mongoose.model("Mys", mysSchema);
