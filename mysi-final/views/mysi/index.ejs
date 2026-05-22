@@ -1,0 +1,30 @@
+<% if (user) { %>
+  <form action="/logout" method="POST" style="display:inline">
+    <button>Odhlásit se (<%= user.username %>)</button>
+  </form>
+<% } else { %>
+  <a href="/login">Přihlásit se</a>
+<% } %>
+
+<% if (user && user.role === "admin") { %>
+  | <a href="/admin/users">Správa uživatelů</a>
+<% } %>
+
+<% if (user) { %>
+  | <a href="/zadosti">Žádosti o převzetí</a>
+  | <a href="/mysi/pridat">+ Přidat myš</a>
+<% } %>
+
+<h1>Evidence počítačových myší</h1>
+
+<% mysi.forEach(mys => { %>
+  <div>
+    <h2><a href="/mysi/<%= mys._id %>"><%= mys.name %></a></h2>
+    <p>Plemeno: <%= mys.breed %></p>
+    <p>Věk: <%= mys.age %> měsíců</p>
+    <% if (mys.image) { %>
+      <img src="/uploads/<%= mys.image %>" width="200">
+    <% } %>
+  </div>
+  <hr>
+<% }) %>

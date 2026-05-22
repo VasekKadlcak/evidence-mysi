@@ -1,0 +1,28 @@
+<h1><%= mys.name %></h1>
+<p>Plemeno: <%= mys.breed %></p>
+<p>Věk: <%= mys.age %> měsíců</p>
+<p><%= mys.description %></p>
+
+<% if (mys.image) { %>
+  <img src="/uploads/<%= mys.image %>" width="300">
+<% } %>
+
+<% if (user) { %>
+  <a href="/mysi/<%= mys._id %>/upravit">Upravit</a>
+  <form action="/mysi/<%= mys._id %>?_method=DELETE" method="POST" style="display:inline">
+    <button>Smazat</button>
+  </form>
+<% } %>
+
+<p><a href="/mysi">Zpět na seznam</a></p>
+
+<h2>Žádost o převzetí myši</h2>
+<form action="/zadosti/<%= mys._id %>" method="POST">
+  <input type="text" name="jmenoZadatele" placeholder="Vaše jméno" required>
+  <br><br>
+  <input type="email" name="email" placeholder="Email" required>
+  <br><br>
+  <textarea name="zprava" placeholder="Proč chcete tuto myš?" required></textarea>
+  <br><br>
+  <button type="submit">Odeslat žádost</button>
+</form>

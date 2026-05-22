@@ -1,0 +1,21 @@
+<h1>Žádosti o převzetí myší</h1>
+<a href="/mysi">Zpět na seznam</a>
+<hr>
+<% zadosti.forEach(zadost => { %>
+  <div>
+    <h3>Myš: <%= zadost.mys ? zadost.mys.name : "neznámá" %></h3>
+    <p>Žadatel: <%= zadost.jmenoZadatele %></p>
+    <p>Email: <%= zadost.email %></p>
+    <p>Zpráva: <%= zadost.zprava %></p>
+    <p>Stav: <%= zadost.stav %></p>
+    <% if (zadost.stav === "cekajici") { %>
+      <form action="/zadosti/<%= zadost._id %>/schvalit" method="POST" style="display:inline">
+        <button>Schválit</button>
+      </form>
+      <form action="/zadosti/<%= zadost._id %>/zamitout" method="POST" style="display:inline">
+        <button>Zamítnout</button>
+      </form>
+    <% } %>
+  </div>
+  <hr>
+<% }) %>
