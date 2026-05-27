@@ -15,12 +15,12 @@ exports.zobrazitFormularPridani = (req, res) => {
 };
 
 exports.pridatMys = async (req, res) => {
-  const { name, typ, age, description } = req.body;
+  const { name, typ, kategorie, description } = req.body;
   let image = "";
   if (req.file) {
     image = req.file.filename;
   }
-  await Mys.create({ name, typ, age, description, image });
+  await Mys.create({ name, typ, kategorie, description, image });
   res.redirect("/mysi");
 };
 
@@ -30,8 +30,8 @@ exports.zobrazitFormularUpravy = async (req, res) => {
 };
 
 exports.upravitMys = async (req, res) => {
-  const { name, typ, age, description } = req.body;
-  const data = { name, typ, age, description };
+  const { name, typ, kategorie, description } = req.body;
+  const data = { name, typ, kategorie, description };
   if (req.file) {
     data.image = req.file.filename;
   }

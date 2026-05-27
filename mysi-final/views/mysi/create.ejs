@@ -20,11 +20,22 @@
       </div>
       <div class="form-group">
         <label class="form-label">Typ</label>
-        <input class="form-control" type="text" name="typ" placeholder="herní, bezdrátová, drátová…" required>
+          <select class="form-control" name="typ" required>
+            <option value="">-- Vyber typ --</option>
+            <option value="drátová">Drátová</option>
+            <option value="bezdrátová">Bezdrátová</option>
+          </select>
       </div>
       <div class="form-group">
-        <label class="form-label">Věk (měsíce)</label>
-        <input class="form-control" type="number" name="age" placeholder="12" min="0" required>
+        <label class="form-label">Kategorie</label>
+        <select class="form-control" name="kategorie" required>
+          <option value="">-- Vyber kategorii --</option>
+          <option value="herní">Herní</option>
+          <option value="ergonomická">Ergonomická</option>
+          <option value="kancelářská">Kancelářská</option>
+          <option value="cestovní">Cestovní</option>
+          <option value="vertikální">Vertikální</option>
+        </select>
       </div>
       <div class="form-group">
         <label class="form-label">Popis</label>

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const mysSchema = new mongoose.Schema({
   name: String,
   typ: String,
-  age: Number,
+  kategorie: { type: String, required: true },
   description: String,
   image: {
     type: String,

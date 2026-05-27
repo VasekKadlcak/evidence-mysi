@@ -35,8 +35,8 @@
           <span class="badge badge-orange"><%= mys.typ %></span>
         </div>
         <div class="prop-row">
-          <span class="prop-label">Věk</span>
-          <span class="prop-value"><%= mys.age %> měsíců</span>
+          <span class="prop-label">Kategorie</span>
+          <span class="badge badge-gray"><%= mys.kategorie %></span>
         </div>
         <div class="prop-row">
           <span class="prop-label">Přidáno</span>
@@ -44,14 +44,14 @@
         </div>
       </div>
 
-      <% if (user) { %>
-        <div class="action-row">
-          <a href="/mysi/<%= mys._id %>/upravit" class="btn btn-secondary">✏️ Upravit</a>
-          <form action="/mysi/<%= mys._id %>?_method=DELETE" method="POST" style="display:inline" onsubmit="return confirm('Opravdu smazat tuto myš?')">
-            <button class="btn btn-danger">🗑 Smazat</button>
-          </form>
-        </div>
-      <% } %>
+    <% if (user && user.role === 'admin') { %>
+      <div class="action-row">
+        <a href="/mysi/<%= mys._id %>/upravit" class="btn btn-secondary">✏️ Upravit</a>
+        <form action="/mysi/<%= mys._id %>?_method=DELETE" method="POST" style="display:inline" onsubmit="return confirm('Opravdu smazat tuto myš?')">
+          <button class="btn btn-danger">🗑 Smazat</button>
+        </form>
+      </div>
+    <% } %>
     </div>
   </div>
 
