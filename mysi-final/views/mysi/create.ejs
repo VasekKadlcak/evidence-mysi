@@ -1,15 +1,42 @@
-<h1>Přidat myš</h1>
-<form action="/mysi" method="POST" enctype="multipart/form-data">
-  <input type="text" name="name" placeholder="Jméno myši" required>
-  <br><br>
-  <input type="text" name="typ" placeholder="Typ (herní, bezdrátová, drátová...)" required>
-  <br><br>
-  <input type="number" name="age" placeholder="Věk (měsíce)" required>
-  <br><br>
-  <textarea name="description" placeholder="Popis" required></textarea>
-  <br><br>
-  <input type="file" name="image">
-  <br><br>
-  <button type="submit">Uložit</button>
-</form>
-<p><a href="/mysi">Zpět</a></p>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Přidat myš — MysDB</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<%- include('../partials/navbar') %>
+
+<div class="container-sm">
+  <a href="/mysi" class="back-link">← Zpět na seznam</a>
+  <div class="form-card">
+    <div class="form-title">Přidat novou myš</div>
+    <form action="/mysi" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label class="form-label">Jméno myši</label>
+        <input class="form-control" type="text" name="name" placeholder="Logitech MX Master 3" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Typ</label>
+        <input class="form-control" type="text" name="typ" placeholder="herní, bezdrátová, drátová…" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Věk (měsíce)</label>
+        <input class="form-control" type="number" name="age" placeholder="12" min="0" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Popis</label>
+        <textarea class="form-control" name="description" placeholder="Stručný popis myši…" required></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Fotografie</label>
+        <input class="form-control form-control-file" type="file" name="image" accept="image/*">
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Uložit myš</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

@@ -1,28 +1,83 @@
-<h1><%= mys.name %></h1>
-<p>Typ: <%= mys.typ %></p>
-<p>Věk: <%= mys.age %> měsíců</p>
-<p><%= mys.description %></p>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= mys.name %> — MysDB</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<%- include('../partials/navbar') %>
 
-<% if (mys.image) { %>
-  <img src="/uploads/<%= mys.image %>" width="300">
-<% } %>
+<div class="container">
+  <a href="/mysi" class="back-link">← Zpět na seznam</a>
 
-<% if (user) { %>
-  <a href="/mysi/<%= mys._id %>/upravit">Upravit</a>
-  <form action="/mysi/<%= mys._id %>?_method=DELETE" method="POST" style="display:inline">
-    <button>Smazat</button>
-  </form>
-<% } %>
+  <div class="detail-layout">
+    <div>
+      <% if (mys.image) { %>
+        <img class="detail-image" src="/uploads/<%= mys.image %>" alt="<%= mys.name %>">
+      <% } else { %>
+        <div class="detail-image-placeholder">🖱️</div>
+      <% } %>
+    </div>
 
-<p><a href="/mysi">Zpět na seznam</a></p>
+    <div class="detail-info">
+      <div>
+        <div class="detail-title"><%= mys.name %></div>
+        <% if (mys.description) { %>
+          <p class="detail-desc mt-1"><%= mys.description %></p>
+        <% } %>
+      </div>
 
-<h2>Žádost o převzetí myši</h2>
-<form action="/zadosti/<%= mys._id %>" method="POST">
-  <input type="text" name="jmenoZadatele" placeholder="Vaše jméno" required>
-  <br><br>
-  <input type="email" name="email" placeholder="Email" required>
-  <br><br>
-  <textarea name="zprava" placeholder="Proč chcete tuto myš?" required></textarea>
-  <br><br>
-  <button type="submit">Odeslat žádost</button>
-</form>
+      <div class="detail-props">
+        <div class="prop-row">
+          <span class="prop-label">Typ</span>
+          <span class="badge badge-orange"><%= mys.typ %></span>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Věk</span>
+          <span class="prop-value"><%= mys.age %> měsíců</span>
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Přidáno</span>
+          <span class="prop-value"><%= new Date(mys.createdAt).toLocaleDateString('cs-CZ') %></span>
+        </div>
+      </div>
+
+      <% if (user) { %>
+        <div class="action-row">
+          <a href="/mysi/<%= mys._id %>/upravit" class="btn btn-secondary">✏️ Upravit</a>
+          <form action="/mysi/<%= mys._id %>?_method=DELETE" method="POST" style="display:inline" onsubmit="return confirm('Opravdu smazat tuto myš?')">
+            <button class="btn btn-danger">🗑 Smazat</button>
+          </form>
+        </div>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <div class="section-title">Zájem o tuto myš</div>
+  <div style="max-width:520px">
+    <div class="form-card">
+      <form action="/zadosti/<%= mys._id %>" method="POST">
+        <div class="form-group">
+          <label class="form-label">Vaše jméno</label>
+          <input class="form-control" type="text" name="jmenoZadatele" placeholder="Jan Novák" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">E-mail</label>
+          <input class="form-control" type="email" name="email" placeholder="jan@email.cz" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Proč chcete tuto myš?</label>
+          <textarea class="form-control" name="zprava" placeholder="Napište pár slov..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Odeslat žádost</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+

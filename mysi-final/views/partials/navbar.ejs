@@ -1,0 +1,24 @@
+<nav class="navbar">
+  <a href="/mysi" class="navbar-brand">
+    <span class="brand-dot"></span>
+    MysDB
+  </a>
+  <div class="navbar-nav">
+    <% if (user) { %>
+      <a href="/mysi" class="nav-link">Přehled</a>
+      <a href="/zadosti" class="nav-link">Žádosti</a>
+      <% if (user.role === "admin") { %>
+        <a href="/admin/users" class="nav-link">Admin</a>
+      <% } %>
+      <a href="/mysi/pridat" class="nav-btn">+ Přidat myš</a>
+      <form action="/logout" method="POST" style="display:inline;margin-left:0.25rem">
+        <button class="nav-btn" style="background:var(--surface2);color:var(--text-muted);border:1px solid var(--border);">
+          ⏏ <%= user.username %>
+        </button>
+      </form>
+    <% } else { %>
+      <a href="/login" class="nav-link">Přihlásit se</a>
+      <a href="/register" class="nav-btn">Registrace</a>
+    <% } %>
+  </div>
+</nav>

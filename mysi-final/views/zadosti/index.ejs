@@ -1,21 +1,68 @@
-<h1>Žádosti o převzetí myší</h1>
-<a href="/mysi">Zpět na seznam</a>
-<hr>
-<% zadosti.forEach(zadost => { %>
-  <div>
-    <h3>Myš: <%= zadost.mys ? zadost.mys.name : "neznámá" %></h3>
-    <p>Žadatel: <%= zadost.jmenoZadatele %></p>
-    <p>Email: <%= zadost.email %></p>
-    <p>Zpráva: <%= zadost.zprava %></p>
-    <p>Stav: <%= zadost.stav %></p>
-    <% if (zadost.stav === "cekajici") { %>
-      <form action="/zadosti/<%= zadost._id %>/schvalit" method="POST" style="display:inline">
-        <button>Schválit</button>
-      </form>
-      <form action="/zadosti/<%= zadost._id %>/zamitout" method="POST" style="display:inline">
-        <button>Zamítnout</button>
-      </form>
-    <% } %>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Žádosti o převzetí — MysDB</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<%- include('../partials/navbar') %>
+
+<div class="container">
+  <div class="page-header flex-between">
+    <div>
+      <h1>Žádosti o převzetí</h1>
+      <p><%= zadosti.length %> žádostí celkem</p>
+    </div>
+    <a href="/mysi" class="btn btn-secondary">← Přehled myší</a>
   </div>
-  <hr>
-<% }) %>
+
+  <% if (zadosti.length === 0) { %>
+    <div class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>Žádné žádosti</h3>
+      <p>Zatím nikdo nepodal žádost o převzetí myši.</p>
+    </div>
+  <% } else { %>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <% zadosti.forEach(zadost => { %>
+        <div class="request-card">
+          <div class="request-header">
+            <div>
+              <div class="request-mouse">🖱️ <%= zadost.mys ? zadost.mys.name : 'Neznámá myš' %></div>
+              <div class="request-body mt-1"><%= zadost.zprava %></div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.5rem;flex-shrink:0;">
+              <% if (zadost.stav === 'cekajici') { %>
+                <span class="badge badge-orange">⏳ Čekající</span>
+              <% } else if (zadost.stav === 'schvalena') { %>
+                <span class="badge badge-green">✓ Schválena</span>
+              <% } else { %>
+                <span class="badge badge-red">✕ Zamítnuta</span>
+              <% } %>
+              <% if (zadost.stav === 'cekajici') { %>
+                <div class="request-actions">
+                  <form action="/zadosti/<%= zadost._id %>/schvalit" method="POST">
+                    <button class="btn btn-success btn-sm">✓ Schválit</button>
+                  </form>
+                  <form action="/zadosti/<%= zadost._id %>/zamitout" method="POST">
+                    <button class="btn btn-danger btn-sm">✕ Zamítnout</button>
+                  </form>
+                </div>
+              <% } %>
+            </div>
+          </div>
+          <div class="request-meta">
+            <span>👤 <%= zadost.jmenoZadatele %></span>
+            <span>✉️ <%= zadost.email %></span>
+            <span>📅 <%= new Date(zadost.createdAt).toLocaleDateString('cs-CZ') %></span>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+</body>
+</html>
+

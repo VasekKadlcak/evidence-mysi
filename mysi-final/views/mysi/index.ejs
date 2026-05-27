@@ -1,30 +1,51 @@
-<% if (user) { %>
-  <form action="/logout" method="POST" style="display:inline">
-    <button>Odhlásit se (<%= user.username %>)</button>
-  </form>
-<% } else { %>
-  <a href="/login">Přihlásit se</a>
-<% } %>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MysDB — Přehled myší</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<%- include('../partials/navbar') %>
 
-<% if (user && user.role === "admin") { %>
-  | <a href="/admin/users">Správa uživatelů</a>
-<% } %>
-
-<% if (user) { %>
-  | <a href="/zadosti">Žádosti o převzetí</a>
-  | <a href="/mysi/pridat">+ Přidat myš</a>
-<% } %>
-
-<h1>Evidence počítačových myší</h1>
-
-<% mysi.forEach(mys => { %>
-  <div>
-    <h2><a href="/mysi/<%= mys._id %>"><%= mys.name %></a></h2>
-    <p>Typ: <%= mys.typ %></p>
-    <p>Věk: <%= mys.age %> měsíců</p>
-    <% if (mys.image) { %>
-      <img src="/uploads/<%= mys.image %>" width="200">
-    <% } %>
+<div class="container">
+  <div class="page-header flex-between">
+    <div>
+      <h1>Evidence myší</h1>
+      <p><%= mysi.length %> myší v databázi</p>
+    </div>
   </div>
-  <hr>
-<% }) %>
+
+  <% if (mysi.length === 0) { %>
+    <div class="empty-state">
+      <div class="empty-icon">🖱️</div>
+      <h3>Zatím žádné myši</h3>
+      <p>Začni přidáním první myši do databáze.</p>
+      <% if (user) { %>
+        <a href="/mysi/pridat" class="btn btn-primary mt-2">+ Přidat myš</a>
+      <% } %>
+    </div>
+  <% } else { %>
+    <div class="grid">
+      <% mysi.forEach(mys => { %>
+        <a href="/mysi/<%= mys._id %>" class="card">
+          <% if (mys.image) { %>
+            <img class="card-image" src="/uploads/<%= mys.image %>" alt="<%= mys.name %>">
+          <% } else { %>
+            <div class="card-image-placeholder">🖱️</div>
+          <% } %>
+          <div class="card-body">
+            <div class="card-title"><%= mys.name %></div>
+            <div class="card-meta">
+              <span class="badge badge-orange"><%= mys.typ %></span>
+              <span class="badge badge-gray"><%= mys.age %> měs.</span>
+            </div>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+</body>
+</html>
