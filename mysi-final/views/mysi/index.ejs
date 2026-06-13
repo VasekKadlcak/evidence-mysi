@@ -31,7 +31,7 @@
       <% mysi.forEach(mys => { %>
         <a href="/mysi/<%= mys._id %>" class="card">
           <% if (mys.image) { %>
-            <img class="card-image" src="/uploads/<%= mys.image %>" alt="<%= mys.name %>">
+            <img class="card-image" src="<%= mys.image %>" alt="<%= mys.name %>">
           <% } else { %>
             <div class="card-image-placeholder">🖱️</div>
           <% } %>

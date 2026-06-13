@@ -26,7 +26,6 @@
             <option value="bezdrátová" <%= mys.typ === 'bezdrátová' ? 'selected' : '' %>>Bezdrátová</option>
           </select>
       </div>  
-</div>
       <div class="form-group">
         <label class="form-label">Kategorie</label>
         <select class="form-control" name="kategorie" required>
@@ -45,7 +44,7 @@
       <div class="form-group">
         <label class="form-label">Nová fotografie <span class="text-muted text-sm">(ponech prázdné pro zachování stávající)</span></label>
         <% if (mys.image) { %>
-          <img src="/uploads/<%= mys.image %>" style="width:100%;border-radius:var(--radius-sm);margin-bottom:0.75rem;border:1px solid var(--border);">
+          <img class="card-image" src="<%= mys.image %>" alt="<%= mys.name %>" style="width:100%;border-radius:var(--radius-sm);margin-bottom:0.75rem;border:1px solid var(--border);">
         <% } %>
         <input class="form-control form-control-file" type="file" name="image" accept="image/*">
       </div>
