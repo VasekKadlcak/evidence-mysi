@@ -41,13 +41,13 @@
               <% } else { %>
                 <span class="badge badge-red">✕ Zamítnuta</span>
               <% } %>
-              <% if (zadost.stav === 'cekajici') { %>
-                <div class="request-actions">
+              <% if (user && (user.role === 'admin' || user.id == zadost.mys?.autor?.toString())) { %>
+                <div style="display:flex; gap:0.5rem;">
                   <form action="/zadosti/<%= zadost._id %>/schvalit" method="POST">
-                    <button class="btn btn-success btn-sm">✓ Schválit</button>
+                    <button class="btn btn-success">✓ Schválit</button>
                   </form>
                   <form action="/zadosti/<%= zadost._id %>/zamitout" method="POST">
-                    <button class="btn btn-danger btn-sm">✕ Zamítnout</button>
+                    <button class="btn btn-danger">✗ Zamítnout</button>
                   </form>
                 </div>
               <% } %>

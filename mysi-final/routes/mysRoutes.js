@@ -10,9 +10,9 @@ const upload = multer({ dest: "temp/" }); // dočasná složka
 router.get("/", mysController.vsechnyMysi);
 router.get("/pridat", requireLogin, mysController.zobrazitFormularPridani);
 router.post("/", requireLogin, upload.single("image"), mysController.pridatMys);
-router.get("/:id/upravit", requireAdmin, mysController.zobrazitFormularUpravy);
-router.put("/:id", requireAdmin, upload.single("image"), mysController.upravitMys);
-router.delete("/:id", requireAdmin, mysController.smazatMys);
+router.get("/:id/upravit", requireLogin, mysController.zobrazitFormularUpravy);
+router.put("/:id", requireLogin, upload.single("image"), mysController.upravitMys);
+router.delete("/:id", requireLogin, mysController.smazatMys);
 router.get("/:id", mysController.detailMysi);
 
 module.exports = router;

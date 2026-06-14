@@ -44,13 +44,11 @@
         </div>
       </div>
 
-    <% if (user && user.role === 'admin') { %>
-      <div class="action-row">
-        <a href="/mysi/<%= mys._id %>/upravit" class="btn btn-secondary">✏️ Upravit</a>
-        <form action="/mysi/<%= mys._id %>?_method=DELETE" method="POST" style="display:inline" onsubmit="return confirm('Opravdu smazat tuto myš?')">
-          <button class="btn btn-danger">🗑 Smazat</button>
-        </form>
-      </div>
+    <% if (user && (user.role === 'admin' || user.id == mys.autor?.toString())) { %>
+      <a href="/mysi/<%= mys._id %>/upravit" class="btn btn-primary">Upravit</a>
+      <form action="/mysi/<%= mys._id %>?_method=DELETE" method="POST">
+        <button type="submit" class="btn btn-danger">Smazat</button>
+      </form>
     <% } %>
     </div>
   </div>

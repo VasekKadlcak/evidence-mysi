@@ -7,6 +7,11 @@ const mysSchema = new mongoose.Schema({
   image: {
     type: String,
     default: ""
-  }
+  },
+  autor: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "User",
+  default: null
+}
 }, { timestamps: true })
 module.exports = mongoose.model("Mys", mysSchema);

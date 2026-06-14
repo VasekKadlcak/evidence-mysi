@@ -25,7 +25,7 @@ exports.pridatMys = async (req, res) => {
     image = `data:${mime};base64,${base64}`;
     fs.unlinkSync(req.file.path); // smaž dočasný soubor
   }
-  await Mys.create({ name, typ, kategorie, description, image });
+  await Mys.create({ name, typ, kategorie, description, image, autor: req.session.user?.id });
   res.redirect("/mysi");
 };
 
